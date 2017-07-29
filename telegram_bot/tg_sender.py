@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import requests
-from config.cfg import TG_API, TG_TOKEN
+from config.cfg import TG_TOKEN  # ,TG_API
+
+TG_API = "https://api.telegram.org/bot"
 
 
 def main(msg, chat_id, msg_type=""):
