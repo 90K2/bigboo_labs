@@ -1,7 +1,7 @@
 import boto3
 
 # set your api username
-profile_name = 'aws-cli-poweruser'
+profile_name = 'aws-api-user'
 
 
 def clean_snapshot(client, snap_id):
@@ -9,10 +9,10 @@ def clean_snapshot(client, snap_id):
 
 
 def main():
-    '''
+    """
     Detect orphaned snapshots from an EC2 account. Requires configured aws profile on machine
     http://docs.aws.amazon.com/cli/latest/reference/configure/
-    '''
+    """
     aws_session = boto3.Session(profile_name=profile_name)
     ec2 = aws_session.client('ec2')
     alive_ami = {}
@@ -27,9 +27,11 @@ def main():
 
     snap_list = list([s['SnapshotId'] for s in ec2.describe_snapshots(OwnerIds=['self'])['Snapshots']])
     orphaned_snaps = list(set(snap_list) - set(alive_snaps))
-    print('Orphaned snapshots:' % orphaned_snaps)
     if orphaned_snaps:
+        print('Orphaned snapshots:' % orphaned_snaps)
         [clean_snapshot(ec2, snap_id) for snap_id in orphaned_snaps]
+    else:
+        print('Seems that all snapshots are alright')
 
 if __name__ == '__main__':
     main()
