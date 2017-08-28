@@ -6,9 +6,9 @@ THE MARAUDER'S GITHUB
 
 **yandex_money_http_handler**
 -------
-- http_handler : simple webhook based on bottle microframework. ;
-- transfer_validation: check integrity of received payments data ;
-- nginx.conf: one nginx location for redirect Yandex data from front -> python webhook ;
+- [http_handler](yandex_money_http_handler/http_handler.py) : simple webhook based on bottle microframework. ;
+- [transfer_validation](yandex_money_http_handler/transfer_validation.py): check integrity of received payments data ;
+- [nginx.conf](yandex_money_http_handler/nginx.conf): one nginx location for redirect Yandex data from front -> python webhook ;
 
 **skype_bot**
 -------
@@ -36,3 +36,7 @@ I spent many a lot of time searching how to find out this f**g `chat_id`. Very s
 **Usage**: 
 - replace `JIRA_HOST` to your "company.atlassian.net" address; 
 - insert correct user credentials `auth = HTTPBasicAuth("_user", "_pass")`. **Important**: user must have access to Administration-Backup 
+
+**aws_api**
+-------
+- [clean_orphaned_snapshots](aws_api/clean_orphaned_snapshots.py) -- search for snapshots without AMI and delete it
