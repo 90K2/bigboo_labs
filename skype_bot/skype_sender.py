@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 import requests
 import json
-from config.cfg import SKYPE_CLIENT_ID, SKYPE_CLIENT_SECRET
 
-CLIENT_ID = SKYPE_CLIENT_ID
-CLIENT_SECRET = SKYPE_CLIENT_SECRET
+CLIENT_ID = 'SKYPE_CLIENT_ID'
+CLIENT_SECRET = 'SKYPE_CLIENT_SECRET'
 
 
 def get_access_token(client_id, client_secret):
