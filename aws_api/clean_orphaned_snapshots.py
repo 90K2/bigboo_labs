@@ -28,7 +28,7 @@ def main():
     snap_list = list([s['SnapshotId'] for s in ec2.describe_snapshots(OwnerIds=['self'])['Snapshots']])
     orphaned_snaps = list(set(snap_list) - set(alive_snaps))
     if orphaned_snaps:
-        print('Orphaned snapshots:' % orphaned_snaps)
+        print('Orphaned snapshots: %s' % orphaned_snaps)
         [clean_snapshot(ec2, snap_id) for snap_id in orphaned_snaps]
     else:
         print('Seems that all snapshots are alright')
