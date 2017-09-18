@@ -30,7 +30,7 @@ I spent many a lot of time searching how to find out this f**g `chat_id`. Very s
 
 **Note**: this module is a part of Nagios notification system. So argument `msg_type` allow to insert emodji status into message. Also demonstrated how to use emodji in telegram bot 
 
-**jira_cloud_backup**
+**jira_cloud_backup** How to Automate Backups for JIRA Cloud applications
 -------
 
 **Usage**: 
