@@ -1,0 +1,76 @@
+#!/bin/bash
+
+set -e
+set -u
+
+# chkconfig: 2345 98 02
+# description: PostgreSQL RDBMS
+
+# where to find commands like su, echo, etc...
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+DB_ENCODING=SQL_ASCII
+DB_LOCALE=UTF-8
+PG_INSTALL_DIR="/usr/pgsql-10"
+PG_DATA_DIR="/db/teamcity"
+PG_SERVER_LOG="$PG_DATA_DIR/serverlog"
+PG_UNIX_USER=teamcity
+POSTGRES="$PG_INSTALL_DIR/bin/postgres"
+PG_CTL="$PG_INSTALL_DIR/bin/pg_ctl"
+INITDB="$PG_INSTALL_DIR/bin/initdb"
+
+# die on first failure; do not keep trucking
+set -e
+
+if [ $# -ne 1 ]; then
+    echo "please enter start/stop/restart etc..." 1>&2
+    exit 1
+fi
+
+# Only start if we can find postgres and pg_ctl.
+if [ ! -x $PG_CTL ]; then
+    echo "$PG_CTL not found" 1>&2
+    exit 1
+fi
+
+if [ ! -x $POSTGRES ]; then
+    echo "$POSTGRES not found" 1>&2
+    exit 1
+fi
+
+case $1 in
+  init)
+        su - $PG_UNIX_USER -c "$INITDB --pgdata='$PG_DATA_DIR' --encoding=$DB_ENCODING --locale=$DB_LOCALE"
+        ;;
+  start)
+        echo -n "Starting PostgreSQL: "
+        su - $PG_UNIX_USER -c "$PG_CTL start -D '$PG_DATA_DIR' -l $PG_SERVER_LOG"
+        echo "ok"
+        ;;
+  stop)
+        echo -n "Stopping PostgreSQL: "
+        su - $PG_UNIX_USER -c "$PG_CTL stop -D '$PG_DATA_DIR' -s -m fast"
+        echo "ok"
+        ;;
+  restart)
+        echo -n "Restarting PostgreSQL: "
+        su - $PG_UNIX_USER -c "$PG_CTL stop -D '$PG_DATA_DIR' -s -m fast -w"
+        su - $PG_UNIX_USER -c "$PG_CTL start -D '$PG_DATA_DIR' -l $PG_SERVER_LOG"
+        echo "ok"
+        ;;
+  reload)
+        echo -n "Reload PostgreSQL: "
+        su - $PG_UNIX_USER -c "$PG_CTL reload -D '$PG_DATA_DIR' -s"
+        echo "ok"
+        ;;
+  status)
+        su - $PG_UNIX_USER -c "$PG_CTL status -D '$PG_DATA_DIR'"
+        ;;
+  *)
+        # Print help
+        echo "Usage: $0 {start|stop|restart|reload|status}" 1>&2
+        exit 1
+        ;;
+esac
+
+exit 0
