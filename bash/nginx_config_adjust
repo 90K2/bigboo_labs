@@ -1,0 +1,21 @@
+#!/bin/bash
+# find all files in sites-enabled directory
+# copy file to sites-available with "replace if newer"
+# if copy OK - drop it from sites-enabled and turn back as symlink
+
+SRC=$(find /etc/nginx/sites-enabled/* -type f -name '*')
+DST=$(find /etc/nginx/sites-available/* -type f -name '*')
+
+DSTDIR=/etc/nginx/sites-available
+SRCDIR=/etc/nginx/sites-enabled
+
+for f in $SRC ; do
+	if [ $f -nt $DSTDIR${f#$SRCDIR} ]; then
+		echo "${f#$SRCDIR} older than $DSTDIR${f#$SRCDIR}"
+	fi
+#	cp -u $f $DSTDIR${f#$SRCDIR}
+#	if [ $? > 0 ]; then
+#		rm -f $f
+#		ln -s $DSTDIR${f#$SRCDIR} $f
+#	fi
+done
