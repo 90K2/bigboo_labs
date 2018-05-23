@@ -1,0 +1,3 @@
+- [alb_logs_cleaner.py](alb_logs_cleaner.py) -- Clean any s3 files (logs etc) older than pointed date
+- [clean_orphaned_snapshots.py](clean_orphaned_snapshots.py) -- search for orphaned EBS snapshots without AMI and delete it
+- [cloudwatch_ec2_metrics.py](cloudwatch_ec2_metrics.py) -- Send CloudWatch EC2 metrics to Nagios plugin
