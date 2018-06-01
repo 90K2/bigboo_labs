@@ -1,3 +1,4 @@
+from elasticsearch import exceptions
 
 
 def es_paginator(es, index_name, query):
@@ -9,8 +10,10 @@ def es_paginator(es, index_name, query):
     :param query: <dict> elasticsearch dsl query (https://elasticsearch-dsl.readthedocs.io/en/latest/)
     :return: yield dict record
     """
-
-    search_result = es.search(index=index_name, body=query)
+    try:
+        search_result = es.search(index=index_name, body=query)
+    except exceptions.NotFoundError:
+        sys.exit("Probably %s index name does not exist" % index_name)
 
     if search_result["hits"]["hits"]:
         paginator = 0
