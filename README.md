@@ -40,3 +40,5 @@ I spent many a lot of time searching how to find out this f**g `chat_id`. Very s
 **aws_api**
 -------
 - [clean_orphaned_snapshots](aws_api/clean_orphaned_snapshots.py) -- search for snapshots without AMI and delete it
+- [sign_s3_download_link](aws_api/sign_s3_download_link.py) -- download any s3 file via pre signed direct link without public access
+
