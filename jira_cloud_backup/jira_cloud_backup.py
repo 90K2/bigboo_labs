@@ -18,8 +18,9 @@ def download_file(url, auth):
 JIRA_HOST = "company.atlassian.net"
 URL_backup = "https://%(jira_host)s/rest/backup/1/export/runbackup" % {'jira_host': JIRA_HOST}
 URL_download = "https://%(jira_host)s/plugins/servlet" % {'jira_host': JIRA_HOST}
-
-auth = HTTPBasicAuth("_user", "_pass")
+# Since ~ mid 2019 Atlassian has been deprecated basic auth login:pass.
+# You should use email:apitoken instead
+auth = HTTPBasicAuth("_email", "_api_token")
 payload = {"cbAttachments": "true", "exportToCloud": "false"}
 headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
