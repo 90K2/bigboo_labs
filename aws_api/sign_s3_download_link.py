@@ -1,8 +1,9 @@
 import boto3
 
+OBJECT_URL = "https://bucket-name.s3-us-west-2.amazonaws.com/full/path/to/file.dmp"
 
-BUCKET = "s3-bucket-name"
-FILE_PATH = "file/full/path"
+BUCKET = OBJECT_URL.split(".s3")[0].split("//")[1]
+FILE_PATH = OBJECT_URL.split(".com/")[1]
 
 profile_name = 'aws-api-user'  # set this value to your api username
 region = "us-west-2"  # your bucket's region
