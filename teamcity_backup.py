@@ -18,7 +18,7 @@ def get_tc_version():
 def main():
     current_version = get_tc_version()
     # backup_name = "TeamCity_Backup_%s_%s" % (current_version.replace(" ", "_"), datetime.strftime(datetime.now(), "%Y%m%d_%H%M%S"))
-    backup_name = "TeamCity_Backup_%s_%s" % current_version.replace(" ", "_")
+    backup_name = "TeamCity_Backup_%s" % current_version.replace(" ", "_")
 
     r = requests.post(TC_URL + "/app/rest/server/backup",
                       params={"includeConfigs": True,
