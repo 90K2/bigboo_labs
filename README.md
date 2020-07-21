@@ -20,7 +20,9 @@ THE MARAUDER'S GITHUB
 * if you want to send message to the private chat `skype_id` = **skype_login** ;
 * if you want to send message to the conversation `skype_id` = **chat_id** ;
                    
-I spent many a lot of time searching how to find out this f**g `chat_id`. Very simple: enter **/get name** in conversation :simple_smile:
+How to add skype bot into chat group: you can send message to chat with bot, so that chat will show up in recent chats. Next go to target group and use "Add" button in the top right corner (NOT over group properties) and pick bot from displayed list
+
+How to get skype chat id : just use web version, open target group and filter browser console requests by '@thread' , thread id will be in requests list
 
 **telegram_bot**
 -------
